@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Views Predictor - Enhanced</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="min-h-screen">
+
+  <div class="container mx-auto px-6 py-12 max-w-7xl">
+
+    <!-- HEADER -->
+    <header class="text-center mb-16 fade-up">
+      <div class="flex items-center justify-center mb-4">
+        <i class="fas fa-video text-red-600 text-7xl mr-4 drop-shadow-lg"></i>
+        <h1 class="text-6xl font-extrabold tracking-tight drop-shadow-xl">
+          <span class="gradient-text">YouTube</span> Predictor
+        </h1>
+      </div>
+      <p class="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        Enter your video details and let our enhanced model estimate possible views.
+      </p>
+    </header>
+
+    <!-- MAIN GRID -->
+    <div class="grid lg:grid-cols-2 gap-10">
+
+      <!-- INPUT CARD -->
+      <section class="glass rounded-3xl p-8 space-y-6 shadow-xl fade-up card-hover">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+          <i class="fas fa-edit text-red-400 mr-3"></i>
+          Video Details
+        </h2>
+
+        <div>
+          <label class="input-label">Likes</label>
+          <input type="number" id="likes" value="1000" min="0" class="input-field" />
+        </div>
+
+        <div>
+          <label class="input-label">Comments</label>
+          <input type="number" id="comments" value="50" min="0" class="input-field" />
+        </div>
+
+        <div>
+          <label class="input-label">Category</label>
+          <select id="category" class="input-field"></select>
+        </div>
+
+        <div>
+          <label class="input-label">Publish Hour</label>
+          <input type="number" id="publishHour" value="14" min="0" max="23" class="input-field" />
+        </div>
+
+        <div>
+          <label class="input-label">Day of Week</label>
+          <select id="dayOfWeek" class="input-field"></select>
+        </div>
+
+        <div class="glass rounded-xl p-4 border border-blue-500">
+          <div class="flex items-center">
+            <i class="fas fa-chart-line text-blue-400 text-xl mr-3"></i>
+            <div>
+              <span class="text-sm text-gray-300">Engagement Score:</span>
+              <span class="text-xl font-bold text-blue-400 ml-2" id="engagementRate">0</span>
+            </div>
+          </div>
+        </div>
+
+        <button id="predictBtn" class="predict-btn">
+          <i class="fas fa-bolt mr-2"></i>Predict Views
+        </button>
+      </section>
+
+      <!-- RESULTS + SUMMARY -->
+      <section class="space-y-6 fade-up">
+
+        <div id="predictionResult" class="hidden glass rounded-3xl p-10 text-center shadow-lg fade-up card-hover">
+          <i class="fas fa-fire text-6xl text-red-500 mb-4"></i>
+          <h3 class="text-4xl font-bold mb-3">Estimated Views</h3>
+          <div id="predictedViews" class="text-7xl font-extrabold gradient-text mb-4 drop-shadow-xl">0</div>
+        </div>
+
+        <div id="summarySection" class="hidden glass rounded-3xl p-10 shadow-lg fade-up card-hover">
+          <h3 class="text-3xl font-bold mb-6 flex items-center">
+            <i class="fas fa-info-circle text-green-400 mr-3"></i>Summary
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="summary-card">
+              <div id="summaryLikes" class="summary-value text-blue-400">1,000</div>
+              <div class="summary-label">Likes</div>
+            </div>
+
+            <div class="summary-card">
+              <div id="summaryComments" class="summary-value text-green-400">50</div>
+              <div class="summary-label">Comments</div>
+            </div>
+
+            <div class="summary-card">
+              <div id="summaryEngagement" class="summary-value text-purple-400">0</div>
+              <div class="summary-label">Engagement</div>
+            </div>
+
+            <div class="summary-card">
+              <div id="summaryCategory" class="summary-value text-red-400">Music</div>
+              <div class="summary-label">Category</div>
+            </div>
+
+            <div class="summary-card">
+              <div id="summaryHour" class="summary-value text-yellow-400">14:00</div>
+              <div class="summary-label">Publish Time</div>
+            </div>
+
+            <div class="summary-card">
+              <div id="summaryDay" class="summary-value text-pink-400">Monday</div>
+              <div class="summary-label">Day</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- TIPS -->
+    <section class="glass rounded-3xl p-10 mt-16 shadow-xl fade-up card-hover">
+      <h3 class="text-3xl font-bold mb-4 flex items-center">
+        <i class="fas fa-lightbulb text-yellow-400 mr-3"></i>Pro Tips
+      </h3>
+      <ul class="tips-list">
+        <li>Higher engagement increases views.</li>
+        <li>Weekends boost early performance.</li>
+        <li>Music & Entertainment often perform best.</li>
+        <li>Best posting window: 2–5 PM.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
