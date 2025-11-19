@@ -3,146 +3,288 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Views Predictor - Enhanced</title>
+  <title>YouTube Performance Studio</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen bg-main text-white">
 
-  <div class="container mx-auto px-6 py-12 max-w-7xl">
+  <div class="min-h-screen flex">
 
-    <!-- HEADER -->
-    <header class="text-center mb-16 fade-up">
-      <div class="flex items-center justify-center mb-4">
-        <i class="fas fa-video text-red-600 text-7xl mr-4 drop-shadow-lg"></i>
-        <h1 class="text-6xl font-extrabold tracking-tight drop-shadow-xl">
-          <span class="gradient-text">YouTube</span> Predictor
-        </h1>
+    <!-- Sidebar -->
+    <aside class="sidebar hidden md:flex flex-col justify-between">
+      <div>
+        <div class="flex items-center gap-3 mb-8">
+          <div class="logo-circle">
+            <i class="fas fa-play text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-semibold tracking-tight">YT Studio</h1>
+            <p class="text-xs text-gray-400">Views Predictor</p>
+          </div>
+        </div>
+
+        <nav class="space-y-2">
+          <button class="nav-item active">
+            <i class="fas fa-chart-line"></i>
+            <span>Predictor</span>
+          </button>
+          <button class="nav-item">
+            <i class="fas fa-bullseye"></i>
+            <span>Strategy</span>
+          </button>
+          <button class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            <span>Tips</span>
+          </button>
+        </nav>
       </div>
-      <p class="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-        Enter your video details and let our enhanced model estimate possible views.
-      </p>
-    </header>
 
-    <!-- MAIN GRID -->
-    <div class="grid lg:grid-cols-2 gap-10">
+      <div class="text-xs text-gray-500">
+        <p>Made for creators 🎥</p>
+      </div>
+    </aside>
 
-      <!-- INPUT CARD -->
-      <section class="glass rounded-3xl p-8 space-y-6 shadow-xl fade-up card-hover">
-        <h2 class="text-3xl font-bold mb-6 flex items-center">
-          <i class="fas fa-edit text-red-400 mr-3"></i>
-          Video Details
-        </h2>
+    <!-- Main Content -->
+    <main class="flex-1 px-5 md:px-10 py-8 flex flex-col gap-8">
 
+      <!-- Top Bar -->
+      <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <label class="input-label">Likes</label>
-          <input type="number" id="likes" value="1000" min="0" class="input-field" />
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-3">
+            <span class="pill pill-live">Live Simulator</span>
+            YouTube Performance Studio
+          </h2>
+          <p class="text-gray-300 text-sm mt-1">
+            Experiment with engagement, timing, and category to estimate how your next upload could perform.
+          </p>
         </div>
 
-        <div>
-          <label class="input-label">Comments</label>
-          <input type="number" id="comments" value="50" min="0" class="input-field" />
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:block text-right">
+            <p class="text-xs text-gray-400">Channel health</p>
+            <p class="text-sm font-semibold text-emerald-400">Optimizing</p>
+          </div>
+          <div class="avatar-circle">
+            <span class="text-sm font-semibold">YT</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- KPI Row -->
+      <section class="grid sm:grid-cols-3 gap-4">
+        <div class="kpi-card">
+          <div class="flex items-center justify-between mb-1">
+            <span class="kpi-label">Target views</span>
+            <i class="fas fa-eye text-sky-400"></i>
+          </div>
+          <div id="kpiTarget" class="kpi-value">0</div>
+          <p class="kpi-footnote">Based on your inputs</p>
         </div>
 
-        <div>
-          <label class="input-label">Category</label>
-          <select id="category" class="input-field"></select>
+        <div class="kpi-card">
+          <div class="flex items-center justify-between mb-1">
+            <span class="kpi-label">Engagement score</span>
+            <i class="fas fa-fire text-orange-400"></i>
+          </div>
+          <div id="kpiEngagement" class="kpi-value">0.00</div>
+          <p class="kpi-footnote">Likes + comments weight</p>
         </div>
 
-        <div>
-          <label class="input-label">Publish Hour</label>
-          <input type="number" id="publishHour" value="14" min="0" max="23" class="input-field" />
+        <div class="kpi-card">
+          <div class="flex items-center justify-between mb-1">
+            <span class="kpi-label">Timing boost</span>
+            <i class="fas fa-clock text-yellow-300"></i>
+          </div>
+          <div id="kpiTiming" class="kpi-value text-yellow-300">Neutral</div>
+          <p class="kpi-footnote">Hour & weekday effect</p>
         </div>
+      </section>
 
-        <div>
-          <label class="input-label">Day of Week</label>
-          <select id="dayOfWeek" class="input-field"></select>
-        </div>
+      <!-- Main Grid -->
+      <section class="grid lg:grid-cols-2 gap-8 lg:gap-10">
 
-        <div class="glass rounded-xl p-4 border border-blue-500">
-          <div class="flex items-center">
-            <i class="fas fa-chart-line text-blue-400 text-xl mr-3"></i>
+        <!-- Input Form -->
+        <section class="glass rounded-3xl p-6 md:p-7 space-y-6 fade-up">
+          <div class="flex items-center justify-between gap-3">
             <div>
-              <span class="text-sm text-gray-300">Engagement Score:</span>
-              <span class="text-xl font-bold text-blue-400 ml-2" id="engagementRate">0</span>
+              <h3 class="text-xl font-semibold flex items-center gap-2">
+                <i class="fas fa-sliders-h text-red-400"></i>
+                Video Inputs
+              </h3>
+              <p class="text-xs text-gray-400 mt-1">
+                Tune these values to simulate different scenarios.
+              </p>
             </div>
+            <span class="pill pill-soft">
+              <i class="fas fa-wand-magic-sparkles mr-1"></i>
+              Smart model
+            </span>
           </div>
-        </div>
 
-        <button id="predictBtn" class="predict-btn">
-          <i class="fas fa-bolt mr-2"></i>Predict Views
-        </button>
-      </section>
-
-      <!-- RESULTS + SUMMARY -->
-      <section class="space-y-6 fade-up">
-
-        <div id="predictionResult" class="hidden glass rounded-3xl p-10 text-center shadow-lg fade-up card-hover">
-          <i class="fas fa-fire text-6xl text-red-500 mb-4"></i>
-          <h3 class="text-4xl font-bold mb-3">Estimated Views</h3>
-          <div id="predictedViews" class="text-7xl font-extrabold gradient-text mb-4 drop-shadow-xl">0</div>
-        </div>
-
-        <div id="summarySection" class="hidden glass rounded-3xl p-10 shadow-lg fade-up card-hover">
-          <h3 class="text-3xl font-bold mb-6 flex items-center">
-            <i class="fas fa-info-circle text-green-400 mr-3"></i>Summary
-          </h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="summary-card">
-              <div id="summaryLikes" class="summary-value text-blue-400">1,000</div>
-              <div class="summary-label">Likes</div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="input-label">Likes</label>
+              <input type="number" id="likes" value="1000" min="0" class="input-field" />
             </div>
 
-            <div class="summary-card">
-              <div id="summaryComments" class="summary-value text-green-400">50</div>
-              <div class="summary-label">Comments</div>
-            </div>
-
-            <div class="summary-card">
-              <div id="summaryEngagement" class="summary-value text-purple-400">0</div>
-              <div class="summary-label">Engagement</div>
-            </div>
-
-            <div class="summary-card">
-              <div id="summaryCategory" class="summary-value text-red-400">Music</div>
-              <div class="summary-label">Category</div>
-            </div>
-
-            <div class="summary-card">
-              <div id="summaryHour" class="summary-value text-yellow-400">14:00</div>
-              <div class="summary-label">Publish Time</div>
-            </div>
-
-            <div class="summary-card">
-              <div id="summaryDay" class="summary-value text-pink-400">Monday</div>
-              <div class="summary-label">Day</div>
+            <div>
+              <label class="input-label">Comments</label>
+              <input type="number" id="comments" value="50" min="0" class="input-field" />
             </div>
           </div>
 
-        </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="input-label">Category</label>
+              <select id="category" class="input-field"></select>
+            </div>
+
+            <div>
+              <label class="input-label">Day of Week</label>
+              <select id="dayOfWeek" class="input-field"></select>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="input-label">Publish Hour (0–23)</label>
+              <input type="number" id="publishHour" value="14" min="0" max="23" class="input-field" />
+            </div>
+
+            <div class="glass-sub p-3 rounded-2xl flex items-center gap-3">
+              <div class="icon-circle">
+                <i class="fas fa-bolt text-yellow-300 text-sm"></i>
+              </div>
+              <div>
+                <p class="text-xs text-gray-300">Engagement score</p>
+                <p id="engagementRate" class="text-xl font-semibold text-sky-300">0.00</p>
+              </div>
+            </div>
+          </div>
+
+          <button id="predictBtn" class="predict-btn flex items-center justify-center gap-2">
+            <i class="fas fa-play"></i>
+            Run prediction
+          </button>
+
+          <p class="text-[11px] text-gray-400 flex items-center gap-2">
+            <i class="fas fa-circle-info text-xs"></i>
+            This is a fun estimator, not an official YouTube metric.
+          </p>
+        </section>
+
+        <!-- Result + Insights -->
+        <section class="space-y-6 fade-up">
+
+          <!-- Main Prediction Card -->
+          <div class="glass rounded-3xl p-6 md:p-7 flex flex-col gap-4">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <h3 class="text-xl font-semibold flex items-center gap-2">
+                  <i class="fas fa-chart-line text-emerald-400"></i>
+                  Predicted Views
+                </h3>
+                <p class="text-xs text-gray-400 mt-1">
+                  Estimated range generated from your current settings.
+                </p>
+              </div>
+              <span class="pill pill-outline">
+                <i class="fas fa-flask mr-1"></i>
+                Simulation
+              </span>
+            </div>
+
+            <div id="predictionResult" class="space-y-3">
+              <div class="flex items-end gap-3">
+                <p id="predictedViews" class="text-4xl md:text-5xl font-extrabold text-emerald-300 tracking-tight">
+                  0
+                </p>
+                <span class="text-sm text-gray-400 mb-1">expected views</span>
+              </div>
+              <p id="predictionRange" class="text-xs text-gray-400">
+                Adjust engagement or posting time to see how your range changes.
+              </p>
+            </div>
+
+            <div class="border-t border-white/10 pt-4 space-y-3">
+              <p class="text-xs font-semibold text-gray-300 uppercase tracking-[0.18em]">
+                Quick insight
+              </p>
+              <p id="insightText" class="text-sm text-gray-200">
+                Fill in your details and run a prediction to get tailored advice for this upload.
+              </p>
+            </div>
+          </div>
+
+          <!-- Summary Grid -->
+          <div id="summarySection" class="glass rounded-3xl p-6 md:p-7 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold flex items-center gap-2">
+                <i class="fas fa-table-columns text-sky-300"></i>
+                Scenario summary
+              </h3>
+              <span class="text-[11px] text-gray-400">For this specific video</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="summary-item">
+                <div id="summaryLikes" class="summary-value text-sky-300">1,000</div>
+                <p>Likes</p>
+              </div>
+
+              <div class="summary-item">
+                <div id="summaryComments" class="summary-value text-emerald-300">50</div>
+                <p>Comments</p>
+              </div>
+
+              <div class="summary-item">
+                <div id="summaryEngagement" class="summary-value text-purple-300">0</div>
+                <p>Engagement</p>
+              </div>
+
+              <div class="summary-item">
+                <div id="summaryCategory" class="summary-value text-red-300">Music</div>
+                <p>Category</p>
+              </div>
+
+              <div class="summary-item">
+                <div id="summaryHour" class="summary-value text-yellow-300">14:00</div>
+                <p>Publish time</p>
+              </div>
+
+              <div class="summary-item">
+                <div id="summaryDay" class="summary-value text-pink-300">Monday</div>
+                <p>Day</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div class="glass-sub rounded-3xl p-5 space-y-3">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-lightbulb text-yellow-300"></i>
+              <h4 class="font-semibold text-sm">Creator tips</h4>
+            </div>
+            <ul class="tips-list">
+              <li>Hook viewers in the first 5 seconds to maximize watch time.</li>
+              <li>Use clear, bold thumbnails and short titles that create curiosity.</li>
+              <li>Reply to early comments to boost interaction velocity.</li>
+              <li>Post when your audience is most active—test weekday vs weekend.</li>
+            </ul>
+          </div>
+
+        </section>
       </section>
-    </div>
 
-    <!-- TIPS -->
-    <section class="glass rounded-3xl p-10 mt-16 shadow-xl fade-up card-hover">
-      <h3 class="text-3xl font-bold mb-4 flex items-center">
-        <i class="fas fa-lightbulb text-yellow-400 mr-3"></i>Pro Tips
-      </h3>
-      <ul class="tips-list">
-        <li>Higher engagement increases views.</li>
-        <li>Weekends boost early performance.</li>
-        <li>Music & Entertainment often perform best.</li>
-        <li>Best posting window: 2–5 PM.</li>
-      </ul>
-    </section>
-
+    </main>
   </div>
 
   <script src="scripts.js"></script>
